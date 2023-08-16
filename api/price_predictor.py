@@ -12,7 +12,7 @@ CORS(app)
 model_path = str(Path().absolute().absolute()) + "/models/price_predictor.model"
 model = xgboost.Booster(model_file = model_path)
 
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods = ["POST"])
 def predict():
     data = request.json
     input_data = pd.DataFrame(data, index = [0])
@@ -21,8 +21,8 @@ def predict():
         input_data[col] = pd.to_numeric(input_data[col])
 
     prediction = model.predict(xgboost.DMatrix(input_data))
-    return jsonify({'prediction': prediction.tolist()})
+    return jsonify({"prediction": prediction.tolist()})
     
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug = True)
